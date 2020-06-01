@@ -34,7 +34,7 @@ public abstract class Canvas extends Displayable {
     // todo waiting repaint finish
   }
 
-  public void pressedEsc() {
+  public void pressedBack() {
     for (Command cmd : currentCommands) {
       if (cmd.type == Command.BACK || currentCommands.size() == 1) {
         commandListener.commandAction(cmd, this);

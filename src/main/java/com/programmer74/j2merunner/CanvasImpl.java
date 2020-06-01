@@ -43,8 +43,9 @@ public class CanvasImpl extends JPanel {
       if (code != 0) {
         canvas.publicKeyReleased(code);
       } else {
-        if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
-          canvas.pressedEsc();
+        if ((keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) || (keyEvent.getKeyCode()
+            == KeyEvent.VK_BACK_SPACE)) {
+          canvas.pressedBack();
         }
       }
     }

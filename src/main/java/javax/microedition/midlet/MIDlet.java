@@ -15,6 +15,6 @@ public abstract class MIDlet {
   }
 
   public void notifyDestroyed() {
-    System.out.println("notifyDestroyed()");
+    System.exit(0);
   }
 }
