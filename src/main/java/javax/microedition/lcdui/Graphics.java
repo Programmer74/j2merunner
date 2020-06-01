@@ -123,6 +123,10 @@ public class Graphics {
     graphics.setColor(new Color(r, g, b));
   }
 
+  public int getColor() {
+    return graphics.getColor().getRGB();
+  }
+
   public void drawRegion(Image src, int x_src, int y_src, int width, int height, int transform, int x_dst, int y_dst, int anchor) {
     final Image image = src.getSubImage(x_src, y_src, width, height, transform);
     x_dst = getAnchorX(x_dst, image.getWidth(), anchor);
@@ -130,19 +134,31 @@ public class Graphics {
     graphics.drawImage(image.image, x_dst, y_dst, null);
   }
 
+  public void clipRect(int x, int y, int w, int h) {
+    graphics.clipRect(x, y, w, h);
+  }
+
   public int getClipX() {
-    return 0;
+    return graphics.getClipBounds().x;
   }
 
   public int getClipY() {
-    return 0;
+    return graphics.getClipBounds().y;
   }
 
   public int getClipWidth() {
-    return 0;
+    return graphics.getClipBounds().width;
   }
 
   public int getClipHeight() {
+    return graphics.getClipBounds().height;
+  }
+
+  public int getTranslateX() {
+    return 0;
+  }
+
+  public int getTranslateY() {
     return 0;
   }
 }

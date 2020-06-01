@@ -11,6 +11,8 @@ public interface RecordEnumeration {
   public int nextRecordId() throws RecordStoreException;
 
   public void destroy();
+
+  boolean hasNextElement();
 }
 
 

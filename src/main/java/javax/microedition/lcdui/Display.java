@@ -44,4 +44,13 @@ public class Display {
     System.out.println("VIBRATION " + i);
     return true;
   }
+
+  public boolean flashBacklight(int i) {
+    System.out.println("BACKLIGHT " + i);
+    return true;
+  }
+
+  public void setCurrentItem(Item item) {
+    System.out.println("SET CURRENT ITEM");
+  }
 }

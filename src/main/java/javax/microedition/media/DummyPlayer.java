@@ -21,4 +21,14 @@ public class DummyPlayer implements Player {
   public int getState() {
     return 0;
   }
+
+  @Override
+  public void setLoopCount(final int count) {
+
+  }
+
+  @Override
+  public void addPlayerListener(final PlayerListener pl) {
+
+  }
 }

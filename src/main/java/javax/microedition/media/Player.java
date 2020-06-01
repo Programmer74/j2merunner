@@ -5,4 +5,6 @@ public interface Player {
   void start();
   void stop();
   int getState();
+  void setLoopCount(int count);
+  void addPlayerListener(PlayerListener pl);
 }

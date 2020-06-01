@@ -65,6 +65,10 @@ public class RecordStore {
     }
   }
 
+  public void deleteRecord(final int nextRecordId) {
+
+  }
+
   public void setRecord(int recordId, byte[] arr, int offset, int numBytes)
   throws RecordStoreException {
     records.setRecord(recordId, arr);

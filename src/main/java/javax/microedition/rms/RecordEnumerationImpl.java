@@ -47,6 +47,11 @@ public class RecordEnumerationImpl implements RecordEnumeration, Serializable {
     data.clear();
   }
 
+  @Override
+  public boolean hasNextElement() {
+    return false;
+  }
+
   public void setRecord(int index, byte[] bytes) throws RecordStoreException {
     if (data.size() <= index) {
       throw new RecordStoreException();

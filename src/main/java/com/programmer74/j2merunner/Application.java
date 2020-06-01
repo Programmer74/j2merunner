@@ -2,6 +2,7 @@ package com.programmer74.j2merunner;
 
 import javax.microedition.lcdui.Display;
 import javax.microedition.midlet.MIDlet;
+import javax.microedition.midlet.PropertyStore;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -88,6 +89,15 @@ public class Application {
       }
 
       final String mainClass = midletOne.get().split(",")[2].trim();
+
+      manifest.forEach(manifestLine -> {
+        final String[] lineSplitted = manifestLine.split(": ");
+        if (lineSplitted.length == 2) {
+          final String key = lineSplitted[0];
+          final String value = lineSplitted[1];
+          PropertyStore.setAppProperty(key, value);
+        }
+      });
 
       final URL url = file.toURI().toURL();
       URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();

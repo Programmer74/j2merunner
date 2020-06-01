@@ -53,4 +53,8 @@ public class Command {
   public String toString() {
     return "Command(\"" + name + "\", " + type + ", " + priority + ")";
   }
+
+  public String getLabel() {
+    return name;
+  }
 }

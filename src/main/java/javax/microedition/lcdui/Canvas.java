@@ -163,4 +163,9 @@ public abstract class Canvas extends Displayable {
   public Set<Command> getCommands() {
     return currentCommands;
   }
+
+  public String getKeyName(int key) {
+    System.out.println("getKeyName at key " + key);
+    return "FIRE";
+  }
 }
