@@ -39,4 +39,9 @@ public class Display {
   public int numColors() {
     return 256 * 256 * 256;
   }
+
+  public boolean vibrate(int i) {
+    System.out.println("VIBRATION " + i);
+    return true;
+  }
 }

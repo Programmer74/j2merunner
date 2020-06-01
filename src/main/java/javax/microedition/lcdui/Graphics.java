@@ -35,7 +35,6 @@ public class Graphics {
   }
 
   public void drawString(String s, int x, int y, int anchor) {
-    System.out.println("drawString " + s);
     Rectangle2D bounds = graphics.getFont().getStringBounds(s, frc);
     x = getAnchorX(x, (int) bounds.getWidth(), anchor);
     y = getAnchorY(y, (int) bounds.getHeight(), anchor) + (int) (bounds.getHeight());
@@ -122,5 +121,12 @@ public class Graphics {
     int g = (argb>>8)&0xFF;
     int b = (argb>>0)&0xFF;
     graphics.setColor(new Color(r, g, b));
+  }
+
+  public void drawRegion(Image src, int x_src, int y_src, int width, int height, int transform, int x_dst, int y_dst, int anchor) {
+    final Image image = src.getSubImage(x_src, y_src, width, height, transform);
+    x_dst = getAnchorX(x_dst, image.getWidth(), anchor);
+    y_dst = getAnchorY(y_dst, image.getHeight(), anchor);
+    graphics.drawImage(image.image, x_dst, y_dst, null);
   }
 }
