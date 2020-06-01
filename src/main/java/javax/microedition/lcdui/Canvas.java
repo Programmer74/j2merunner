@@ -29,18 +29,42 @@ public abstract class Canvas extends Displayable {
 
   public static final int FIRE = 8;
 
+  public static final int GAME_A = 9;
+
+  public static final int GAME_B = 10;
+
+  public static final int GAME_C = 11;
+
+  public static final int GAME_D = 12;
+
+  public static final int LEFT_SCREEN_BUTTON_NOKIA_S40 = -6;
+
+  public static final int RIGHT_SCREEN_BUTTON_NOKIA_S40 = -7;
+
+  public static final int CENTER_SCREEN_BUTTON_NOKIA_S40 = -5;
+
   public static final int KEY_NUM0 = 48;
+
   public static final int KEY_NUM1 = 49;
+
   public static final int KEY_NUM2 = 50;
+
   public static final int KEY_NUM3 = 51;
+
   public static final int KEY_NUM4 = 52;
+
   public static final int KEY_NUM5 = 53;
+
   public static final int KEY_NUM6 = 54;
+
   public static final int KEY_NUM7 = 55;
+
   public static final int KEY_NUM8 = 56;
+
   public static final int KEY_NUM9 = 57;
 
   public static final int KEY_STAR = 42;
+
   public static final int KEY_POUND = 35;
 
   public final CanvasImpl impl;
@@ -54,6 +78,10 @@ public abstract class Canvas extends Displayable {
   }
 
   public void repaint() {
+    impl.repaint();
+  }
+
+  public void repaint(int x, int y, int w, int h) {
     impl.repaint();
   }
 
@@ -114,6 +142,10 @@ public abstract class Canvas extends Displayable {
   public void addCommand(Command command) {
     currentCommands.add(command);
     System.out.println("addCommand(" + command + ")");
+  }
+
+  public void setFullScreenMode(boolean b) {
+
   }
 
   public int getWidth() {

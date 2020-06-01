@@ -23,7 +23,7 @@ public class Application {
     final String className = addJarToClasspathAndGetClassName(args[0]);
 
     Display.setCallback(impl -> {
-      JFrame f = new JFrame("J2ME Emulator");
+      JFrame f = new JFrame("J2ME Runner");
       f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       f.add(impl);
       f.addKeyListener(impl.keyListener);

@@ -35,4 +35,8 @@ public class Display {
   public interface IPrepareCanvas {
     void initCanvas(CanvasImpl canvas);
   }
+
+  public int numColors() {
+    return 256 * 256 * 256;
+  }
 }

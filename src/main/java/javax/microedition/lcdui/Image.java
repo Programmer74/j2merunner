@@ -1,6 +1,7 @@
 package javax.microedition.lcdui;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +14,10 @@ public class Image {
   }
 
   public Graphics getGraphics() {
-    throw new RuntimeException();
+    if (image instanceof BufferedImage) {
+      final BufferedImage bi = (BufferedImage)image;
+      return new Graphics(bi.createGraphics());
+    } else return null;
   }
 
   public int getWidth() {

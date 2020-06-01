@@ -71,6 +71,16 @@ public class RecordStore {
     save();
   }
 
+  public byte[] getRecord(int recordId)
+  throws RecordStoreException {
+    return records.data.get(recordId);
+  }
+
+
+  public int getNumRecords() {
+    return this.records.numRecords();
+  }
+
   public static RecordStore openRecordStore(String name, boolean createIfNecessary)
   throws RecordStoreException {
     if (!opened.containsKey(name)) {

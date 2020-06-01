@@ -35,6 +35,7 @@ public class Graphics {
   }
 
   public void drawString(String s, int x, int y, int anchor) {
+    System.out.println("drawString " + s);
     Rectangle2D bounds = graphics.getFont().getStringBounds(s, frc);
     x = getAnchorX(x, (int) bounds.getWidth(), anchor);
     y = getAnchorY(y, (int) bounds.getHeight(), anchor) + (int) (bounds.getHeight());
@@ -51,7 +52,8 @@ public class Graphics {
     if ((anchor & HCENTER) != 0) {
       return x - size / 2;
     }
-    throw new RuntimeException("unknown anchor = " + anchor);
+//    System.out.println("unknown anchor = " + anchor);
+    return x;
   }
 
   private static int getAnchorY(int y, int size, int anchor) {
@@ -64,7 +66,12 @@ public class Graphics {
     if ((anchor & VCENTER) != 0) {
       return y - size / 2;
     }
-    throw new RuntimeException("unknown anchor = " + anchor);
+//    System.out.println("unknown anchor = " + anchor);
+    return y;
+  }
+
+  public void drawRect(int x, int y, int w, int h) {
+    graphics.drawRect(x, y, w, h);
   }
 
   public void fillRect(int x, int y, int w, int h) {
@@ -103,5 +110,17 @@ public class Graphics {
 
   public void setClip(int x, int y, int width, int height) {
     graphics.setClip(x, y, width, height);
+  }
+
+  public void translate(int x, int y) {
+//    System.out.println("translate " + x + " " + y);
+    graphics.translate(x, y);
+  }
+
+  public void setColor(int argb) {
+    int r = (argb>>16)&0xFF;
+    int g = (argb>>8)&0xFF;
+    int b = (argb>>0)&0xFF;
+    graphics.setColor(new Color(r, g, b));
   }
 }
