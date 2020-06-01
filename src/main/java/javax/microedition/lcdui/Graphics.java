@@ -129,4 +129,20 @@ public class Graphics {
     y_dst = getAnchorY(y_dst, image.getHeight(), anchor);
     graphics.drawImage(image.image, x_dst, y_dst, null);
   }
+
+  public int getClipX() {
+    return 0;
+  }
+
+  public int getClipY() {
+    return 0;
+  }
+
+  public int getClipWidth() {
+    return 0;
+  }
+
+  public int getClipHeight() {
+    return 0;
+  }
 }

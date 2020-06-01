@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Set;
@@ -14,9 +16,10 @@ public class CanvasImpl extends JPanel {
 
   public final int height = 320;
 
-  public final int buttonsHeight = 20;
-
   public final int upscale = 2;
+
+  public final int underscreenButtonsHeight = 20;
+  public final int underscreenButtonsWidth = width * upscale / 3;
 
   public final javax.microedition.lcdui.Canvas canvas;
 
@@ -52,6 +55,44 @@ public class CanvasImpl extends JPanel {
     }
   };
 
+  public final MouseAdapter mouseAdapter = new MouseAdapter() {
+    @Override
+    public void mousePressed(final MouseEvent me) {
+      if (me.getY() > height * upscale) {
+        final int buttonIndex = me.getX() / underscreenButtonsWidth;
+        switch (buttonIndex) {
+          case 0:
+            canvas.publicKeyPressed(javax.microedition.lcdui.Canvas.LEFT_SCREEN_BUTTON_NOKIA_S40);
+            break;
+          case 1:
+            canvas.publicKeyPressed(javax.microedition.lcdui.Canvas.CENTER_SCREEN_BUTTON_NOKIA_S40);
+            break;
+          case 2:
+            canvas.publicKeyPressed(javax.microedition.lcdui.Canvas.RIGHT_SCREEN_BUTTON_NOKIA_S40);
+            break;
+        }
+      }
+    }
+
+    @Override
+    public void mouseReleased(final MouseEvent me) {
+      if (me.getY() > height * upscale) {
+        final int buttonIndex = me.getX() / underscreenButtonsWidth;
+        switch (buttonIndex) {
+          case 0:
+            canvas.publicKeyReleased(javax.microedition.lcdui.Canvas.LEFT_SCREEN_BUTTON_NOKIA_S40);
+            break;
+          case 1:
+            canvas.publicKeyReleased(javax.microedition.lcdui.Canvas.CENTER_SCREEN_BUTTON_NOKIA_S40);
+            break;
+          case 2:
+            canvas.publicKeyReleased(javax.microedition.lcdui.Canvas.RIGHT_SCREEN_BUTTON_NOKIA_S40);
+            break;
+        }
+      }
+    }
+  };
+
   public CanvasImpl(javax.microedition.lcdui.Canvas canvas) {
     this.canvas = canvas;
     fillKeyMappings();
@@ -59,8 +100,12 @@ public class CanvasImpl extends JPanel {
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(width * upscale, height * upscale + buttonsHeight);
+    return new Dimension(width * upscale, height * upscale + underscreenButtonsHeight);
   }
+
+  private final int underscreenButtonsY1 = height * upscale;
+
+  private final int underscreenButtonsY2 = height * upscale + underscreenButtonsHeight;
 
   @Override
   public void paintComponent(Graphics g) {
@@ -73,22 +118,32 @@ public class CanvasImpl extends JPanel {
     }
 
     g.setColor(Color.WHITE);
-    g.fillRect(0, height * upscale, width * upscale, height * upscale + buttonsHeight);
+    g.fillRect(0, height * upscale, width * upscale, height * upscale + underscreenButtonsHeight);
     g.setColor(Color.BLACK);
+
+
+    final int offsetX = 10 * upscale;
+    final int textxls = offsetX + width * upscale / 3;
+    final int textxcs = width * upscale / 2 - offsetX / 2;
+    final int textxrs = width * upscale * 2 / 3;
+
+    for (int b = 0; b < 3; b++) {
+      int x = b * underscreenButtonsWidth;
+      g.drawRect(x, underscreenButtonsY1, underscreenButtonsWidth, underscreenButtonsHeight);
+    }
 
     final Set<Command> commands = canvas.getCommands();
     final int y = height * upscale + 15;
-    final int offsetX = 10 * upscale;
     g.setFont(new Font("default", Font.BOLD, 16));
     commands.forEach(cmd -> {
-      int x = offsetX + width * upscale / 3;
+      int x = textxls + offsetX;
 
       if (cmd.type == Command.OK) {
-        x = width * upscale / 2 - offsetX / 2;
+        x = textxcs;
       }
 
       if (cmd.type == Command.BACK) {
-        x = width * upscale * 2 / 3;
+        x = textxrs + offsetX;
       }
 
       g.drawString(cmd.name, x, y);

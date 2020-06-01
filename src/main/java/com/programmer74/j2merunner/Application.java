@@ -11,6 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,7 @@ public class Application {
       f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       f.add(impl);
       f.addKeyListener(impl.keyListener);
+      f.addMouseListener(impl.mouseAdapter);
       f.pack();
       f.setVisible(true);
       f.setResizable(false);
@@ -60,8 +62,18 @@ public class Application {
         ZipEntry entry = (ZipEntry) e.nextElement();
         if (!entry.isDirectory()) {
           if (entry.getName().equals("META-INF/MANIFEST.MF")) {
-            manifest = new BufferedReader(new InputStreamReader(zip.getInputStream(entry)))
-                .lines().collect(Collectors.toList());
+            final ArrayList<String> lines = new ArrayList(new BufferedReader(new InputStreamReader(
+                zip.getInputStream(entry)))
+                .lines()
+                .collect(Collectors.toList()));
+            manifest = new ArrayList<String>();
+            for (String line : lines) {
+              if (!line.startsWith(" ")) {
+                manifest.add(line);
+              } else {
+                manifest.set(manifest.size() - 1, manifest.get(manifest.size() - 1) + line.trim());
+              }
+            }
           }
         }
       }
