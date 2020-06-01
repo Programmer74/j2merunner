@@ -2,6 +2,7 @@ package javax.microedition.lcdui;
 
 import com.programmer74.j2merunner.CanvasImpl;
 import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Canvas extends Displayable {
 
@@ -119,5 +120,9 @@ public abstract class Canvas extends Displayable {
 
   public void setCommandListener(CommandListener listener) {
     this.commandListener = listener;
+  }
+
+  public Set<Command> getCommands() {
+    return currentCommands;
   }
 }
