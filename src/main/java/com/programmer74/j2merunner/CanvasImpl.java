@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class CanvasImpl extends JPanel {
@@ -53,6 +55,7 @@ public class CanvasImpl extends JPanel {
 
   public CanvasImpl(javax.microedition.lcdui.Canvas canvas) {
     this.canvas = canvas;
+    fillKeyMappings();
   }
 
   @Override
@@ -93,20 +96,46 @@ public class CanvasImpl extends JPanel {
   }
 
   private static int convertKeyCharToKeyCode(KeyEvent keyEvent) {
-    switch (keyEvent.getKeyCode()) {
-      case KeyEvent.VK_ENTER:
-        return javax.microedition.lcdui.Canvas.FIRE;
-      case KeyEvent.VK_LEFT:
-        return javax.microedition.lcdui.Canvas.LEFT;
-      case KeyEvent.VK_RIGHT:
-        return javax.microedition.lcdui.Canvas.RIGHT;
-      case KeyEvent.VK_UP:
-        return javax.microedition.lcdui.Canvas.UP;
-      case KeyEvent.VK_DOWN:
-        return javax.microedition.lcdui.Canvas.DOWN;
-      default:
-        System.out.println("unknown keyEvent: " + keyEvent);
-        return 0;
+    final Integer knownCode = keyCodeTwoMidletKeyMapping.get(keyEvent.getKeyCode());
+    if (knownCode != null) {
+      return knownCode;
     }
+    System.out.println("unknown keyEvent: " + keyEvent);
+    return 0;
+  }
+
+  private static HashMap<Integer, Integer> keyCodeTwoMidletKeyMapping = new HashMap<>();
+
+  private static void fillKeyMappings() {
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_ENTER, 
+        javax.microedition.lcdui.Canvas.FIRE);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_LEFT,
+        javax.microedition.lcdui.Canvas.LEFT);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_RIGHT,
+        javax.microedition.lcdui.Canvas.RIGHT);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_UP,
+        javax.microedition.lcdui.Canvas.UP);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_DOWN,
+        javax.microedition.lcdui.Canvas.DOWN);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_NUMPAD0,
+        javax.microedition.lcdui.Canvas.KEY_NUM0);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_NUMPAD1,
+        javax.microedition.lcdui.Canvas.KEY_NUM7);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_NUMPAD2,
+        javax.microedition.lcdui.Canvas.KEY_NUM8);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_NUMPAD3,
+        javax.microedition.lcdui.Canvas.KEY_NUM9);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_NUMPAD4,
+        javax.microedition.lcdui.Canvas.KEY_NUM4);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_NUMPAD5,
+        javax.microedition.lcdui.Canvas.KEY_NUM5);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_NUMPAD6,
+        javax.microedition.lcdui.Canvas.KEY_NUM6);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_NUMPAD7,
+        javax.microedition.lcdui.Canvas.KEY_NUM1);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_NUMPAD8,
+        javax.microedition.lcdui.Canvas.KEY_NUM2);
+    keyCodeTwoMidletKeyMapping.put(KeyEvent.VK_NUMPAD9,
+        javax.microedition.lcdui.Canvas.KEY_NUM3);
   }
 }

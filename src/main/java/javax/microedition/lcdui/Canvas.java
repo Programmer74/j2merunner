@@ -6,6 +6,19 @@ import java.util.Set;
 
 public abstract class Canvas extends Displayable {
 
+  /**
+   * UP 1
+   * DOWN 6
+   * LEFT 2
+   * RIGHT 5
+   * FIRE 8
+   * GAME_A 9
+   * GAME_B 10
+   * GAME_C 11
+   * GAME_D 12
+   * https://docs.oracle.com/javame/config/cldc/ref-impl/midp2.0/jsr118/javax/microedition/lcdui/Canvas.html#UP
+   */
+
   public static final int UP = 1;
 
   public static final int DOWN = 6;
@@ -15,6 +28,20 @@ public abstract class Canvas extends Displayable {
   public static final int RIGHT = 5;
 
   public static final int FIRE = 8;
+
+  public static final int KEY_NUM0 = 48;
+  public static final int KEY_NUM1 = 49;
+  public static final int KEY_NUM2 = 50;
+  public static final int KEY_NUM3 = 51;
+  public static final int KEY_NUM4 = 52;
+  public static final int KEY_NUM5 = 53;
+  public static final int KEY_NUM6 = 54;
+  public static final int KEY_NUM7 = 55;
+  public static final int KEY_NUM8 = 56;
+  public static final int KEY_NUM9 = 57;
+
+  public static final int KEY_STAR = 42;
+  public static final int KEY_POUND = 35;
 
   public final CanvasImpl impl;
 
@@ -75,6 +102,10 @@ public abstract class Canvas extends Displayable {
     // todo true it possible too
   }
 
+  public int getGameAction(int keyCode) {
+    return keyCode;
+  }
+
   public void removeCommand(Command command) {
     currentCommands.remove(command);
     System.out.println("removeCommand(" + command + ")");
@@ -91,31 +122,6 @@ public abstract class Canvas extends Displayable {
 
   public int getHeight() {
     return impl.height;
-  }
-
-  /**
-   * UP 1
-   * DOWN 6
-   * LEFT 2
-   * RIGHT 5
-   * FIRE 8
-   * GAME_A 9
-   * GAME_B 10
-   * GAME_C 11
-   * GAME_D 12
-   * https://docs.oracle.com/javame/config/cldc/ref-impl/midp2.0/jsr118/javax/microedition/lcdui/Canvas.html#UP
-   */
-  public int getGameAction(int keyCode) {
-    switch (keyCode) {
-      case UP:
-      case DOWN:
-      case LEFT:
-      case RIGHT:
-      case FIRE:
-        return keyCode;
-      default:
-        throw new RuntimeException("getGameAction(" + keyCode + ") isn't implemented!");
-    }
   }
 
   public void setCommandListener(CommandListener listener) {
